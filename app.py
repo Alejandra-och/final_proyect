@@ -4,7 +4,7 @@ import streamlit as st
 
 car_data = pd.read_csv('vehicles_us.csv')  # leer los datos
 
-st.header("Visualización de datos de anuncios de venta de Vehículos en EE.UU.")
+st.header("Visualización de datos para anuncios de venta en Vehículos en EE.UU.")
 # Mostrar tabla de datos
 st.dataframe(car_data)
 
@@ -18,7 +18,10 @@ if hist_button:  # al hacer clic en el botón
 
     # crear un histograma
     fig = px.histogram(car_data, x="odometer",
-                       title='Cantidad de vehiculos según su kilometraje(millas)')
+                       title='Cantidad de vehiculos ofrecidos según su kilometraje(millas)')
+    # agregar etiquetas a los ejes
+    fig.update_xaxes(title_text='Kilometraje (millas)')
+    fig.update_yaxes(title_text='Cantidad de vehículos')
 
     # mostrar un gráfico Plotly interactivo
     st.plotly_chart(fig, use_container_width=True)
@@ -36,6 +39,9 @@ if scatter_button:  # al hacer clic en el botón
     # crear un gráfico de dispersión
     fig = px.scatter(car_data, x="odometer", y="price",
                      title='Relación entre el precio y el kilometraje(millas)')
+    # agregar etiquetas a los ejes
+    fig.update_xaxes(title_text='Kilometraje (millas)')
+    fig.update_yaxes(title_text='Precio (USD)')
 
     # mostrar un gráfico Plotly interactivo
     st.plotly_chart(fig, use_container_width=True)
